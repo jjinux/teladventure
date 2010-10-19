@@ -1,2 +1,5 @@
 # Created by NetBeans.
 /nbproject
+
+# Created by Rails.
+/log/*.log
