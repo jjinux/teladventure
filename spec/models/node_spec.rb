@@ -23,4 +23,11 @@ describe Node do
     node.choice.should == "choice"
     node.outcome.should == "outcome"
   end
+
+  context "create_a_few_nodes" do
+    it "creates a few nodes" do
+      Node.create_a_few_nodes
+      Node.root.children.size.should == 2
+    end
+  end
 end
