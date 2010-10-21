@@ -4,7 +4,7 @@ Feature: Twilio
   I want to call a phone number and create an interactive story
 
   Scenario: say hello
-    Given there is a root node
+    Given there are a few nodes
 
     When I receive a phone call
     Then it should introduce me to the game
