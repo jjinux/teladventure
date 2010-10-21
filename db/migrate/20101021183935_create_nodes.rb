@@ -1,8 +1,10 @@
 class CreateNodes < ActiveRecord::Migration
   def self.up
     create_table :nodes do |t|
+      # The root node will have parent_id and :choice set to NULL.
       t.integer :parent_id
-      t.string :choice, :null => false
+      t.string :choice
+
       t.string :outcome, :null => false
 
       t.timestamps
