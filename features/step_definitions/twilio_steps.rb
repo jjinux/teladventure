@@ -26,3 +26,7 @@ Then /^it should introduce me to the node$/ do
   assert_valid_xml_document
   @doc.xpath("/Response/Play").first.should_not be_nil
 end
+
+Given /^there is a root node$/ do
+  Factory :node
+end
