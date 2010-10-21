@@ -1,7 +1,9 @@
 class TwilioController < ApplicationController
   def index
-    respond_to do |format|
-      format.xml { render :layout => false }
-    end
+    render_xml
+  end
+
+  def introduce_node
+    render_xml
   end
 end
