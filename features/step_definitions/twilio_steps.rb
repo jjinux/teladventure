@@ -3,6 +3,10 @@ def assert_valid_xml_document
   @doc = Nokogiri::XML(response.body)
 end
 
+Given /^there are a few nodes$/ do
+  Node.create_a_few_nodes
+end
+
 When /^I receive a phone call$/ do
   get url_for(:controller => :twilio)
 end
@@ -25,8 +29,4 @@ end
 Then /^it should introduce me to the node$/ do
   assert_valid_xml_document
   @doc.xpath("/Response/Play").first.should_not be_nil
-end
-
-Given /^there is a root node$/ do
-  Factory :node
 end
