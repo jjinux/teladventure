@@ -5,4 +5,7 @@ Feature: Twilio
 
   Scenario: say hello
     When I receive a phone call
-    Then it should say hello
+    Then it should introduce me to the game
+
+    When I follow the redirect
+    Then it should introduce me to the node
