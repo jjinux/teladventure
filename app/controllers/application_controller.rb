@@ -10,9 +10,10 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def render_xml
+  def render_xml(options = {})
+    options[:layout] ||= false
     respond_to do |format|
-      format.xml { render :layout => false }
+      format.xml { render options }
     end
   end
 end
