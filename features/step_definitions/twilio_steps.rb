@@ -6,10 +6,6 @@ When /^I receive a phone call$/ do
   get url_for(:controller => :twilio)
 end
 
-Then /^it should introduce me to the game$/ do
-  @doc.xpath("/Response/Say").first.content.should == "Hello."
-end
-
 When /^I follow the redirect$/ do
   redirect = @doc.xpath("/Response/Redirect").first
   redirect.should_not be_nil
@@ -36,4 +32,8 @@ end
 
 Then /^it should redirect me to the current node if I haven't made a choice$/ do
   @doc.xpath("/Response/Redirect").should_not be_empty
+end
+
+Then /^it should say "([^"]*)"$/ do |msg|
+  @doc.xpath("//Say").any? { |e| e.content.include?(msg) }.should == true
 end
