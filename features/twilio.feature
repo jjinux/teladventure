@@ -12,8 +12,18 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
+
+  Scenario: listen to the root node
+    Given there are a few nodes
+    And I am on the root node
+    Then I should get a valid TwiML response
     And it should tell me the current outcome
     And it should ask me for the next choice
+
+  Scenario: listen to the root node and timeout
+    Given there are a few nodes
+    And I am on the root node
+    Then I should get a valid TwiML response
     And it should redirect me to the current node if I haven't made a choice
 
     When I follow the redirect
@@ -22,4 +32,3 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should tell me the current outcome
