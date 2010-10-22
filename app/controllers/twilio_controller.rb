@@ -39,7 +39,14 @@ class TwilioController < ApplicationController
     end
 
     if request.post?
-      @choices[params[:Digits].to_i].call
+      if params[:Digits]
+        @choices[params[:Digits].to_i].controller_block.call
+        # XXX Do more.
+      else
+        @error = "I'm sorry.  I didn't get a response.  Let's try again."
+        @redirect = url_for
+        render_xml(:action => :error)
+      end
     else
       render_xml
     end
