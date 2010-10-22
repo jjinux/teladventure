@@ -9,5 +9,5 @@ xml.Response do
   end
 
   # Timeout.
-  xml.Redirect(:action => url_for, :method => "POST")
+  xml.Redirect(url_for, :method => "POST")
 end
