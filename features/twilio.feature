@@ -7,7 +7,11 @@ Feature: Twilio
     Given there are a few nodes
 
     When I receive a phone call
-    Then it should introduce me to the game
+    Then I should get a valid TwiML response
+    And it should introduce me to the game
 
     When I follow the redirect
-    Then it should introduce me to the node
+    Then I should get a valid TwiML response
+    And it should tell me the current outcome
+    And it should ask me for the next choice
+    And it should redirect me to the current node if I haven't made a choice
