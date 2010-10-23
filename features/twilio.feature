@@ -35,3 +35,12 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
+
+  Scenario: listen to the root node and enter an invalid entry
+    Given there are a few nodes
+    When I am on the root node and I enter "7"
+    Then I should get a valid TwiML response
+    And it should say "7 is not a valid entry."
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
