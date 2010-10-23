@@ -37,3 +37,7 @@ end
 Then /^it should say "([^"]*)"$/ do |msg|
   @doc.xpath("//Say").any? { |e| e.content.include?(msg) }.should == true
 end
+
+Then /^it should redirect me if I time out$/ do
+  @doc.xpath("/Response/Redirect").should_not be_empty
+end
