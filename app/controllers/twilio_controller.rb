@@ -92,16 +92,16 @@ class TwilioController < ApplicationController
   def handle_choice
     digits = params[:Digits]
     unless digits
-      @error = "I'm sorry.  I didn't get a response.  Let's try again."
+      @message = "I'm sorry.  I didn't get a response.  Let's try again."
       @redirect = url_for
-      return render_xml(:action => :error)
+      return render_xml(:action => :say_message_and_redirect)
     end
 
     choice = @choices.find { |c| [c.label, c.digits].include?(digits) }
     unless choice
-      @error = "#{digits} is not a valid entry.  Let's try again."
+      @message = "#{digits} is not a valid entry.  Let's try again."
       @redirect = url_for
-      return render_xml(:action => :error)
+      return render_xml(:action => :say_message_and_redirect)
     end
 
     choice.controller_block.call
