@@ -18,6 +18,9 @@ Feature: Twilio
     And I am on the root node
     Then I should get a valid TwiML response
     And it should tell me the current outcome
+    And it should say "create a new choice and outcome."
+    And it should say "edit the current choice and outcome."
+    And it should say "go back a step."
     And it should ask me for the next choice
 
   Scenario: listen to the root node and timeout
