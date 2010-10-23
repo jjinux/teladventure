@@ -38,7 +38,7 @@ Feature: Twilio
 
   Scenario: listen to the root node and enter an invalid entry
     Given there are a few nodes
-    When I am on the root node and I enter "7"
+    When I enter "7" when I am on the root node
     Then I should get a valid TwiML response
     And it should say "7 is not a valid entry."
 

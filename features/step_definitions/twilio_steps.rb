@@ -42,6 +42,6 @@ Then /^it should redirect me if I time out$/ do
   @doc.xpath("/Response/Redirect").should_not be_empty
 end
 
-When /^I am on the root node and I enter "([^"]*)"$/ do |digits|
+When /^I enter "([^"]*)" when I am on the root node$/ do |digits|
   post_via_redirect url_for(:controller => :twilio, :action => :show_node, :Digits => digits)
 end
