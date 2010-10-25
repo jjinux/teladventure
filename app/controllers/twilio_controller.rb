@@ -43,14 +43,22 @@ class TwilioController < ApplicationController
       controller_block { redirect_to :action => :edit_node, :id => @node.id }
     )
 
+    i += 1  # This number is reserved for this choice.
     if @node.parent
       @choices << Choice.new(
         label("parent"),
-        digits("*#{i += 1}"),
+        digits("*#{i}"),
         view_block { @xml.Say("go back a step.") },
         controller_block { redirect_to :action => :show_node, :id => @node.parent_id }
       )
     end
+
+    @choices << Choice.new(
+      label(:start_over),
+      digits("*#{i += 1}"),
+      view_block { @xml.Say("start over.") },
+      controller_block { redirect_to :action => :index }
+    )
 
     if request.post?
       handle_choice
