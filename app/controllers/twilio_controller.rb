@@ -6,7 +6,14 @@ class TwilioController < ApplicationController
   helper_method :give_user_choices
 
   def index
-    render_xml
+    @message = %{
+      Hello.
+      Teladventure is an interactive, phone-based adventure game.
+      You play Teladventure not just by exploring the story, but also by adding to it.
+      Now, let's get started.
+    }
+    @redirect = url_for(:action => "show_node")
+    render_xml(:action => :say_message_and_redirect)
   end
 
   def show_node
