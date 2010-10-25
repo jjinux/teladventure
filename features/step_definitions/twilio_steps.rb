@@ -34,8 +34,8 @@ Then /^it should redirect me to the current node if I haven't made a choice$/ do
   @doc.xpath("/Response/Redirect").should_not be_empty
 end
 
-Then /^it should say "([^"]*)"$/ do |msg|
-  @doc.xpath("//Say").any? { |e| e.content.include?(msg) }.should == true
+Then /^it should (say|play) "([^"]*)"$/ do |verb, msg|
+  @doc.xpath("//#{verb.titlecase}").any? { |e| e.content.include?(msg) }.should == true
 end
 
 Then /^it should redirect me if I time out$/ do
@@ -44,4 +44,9 @@ end
 
 When /^I enter "([^"]*)" when I am on the root node$/ do |digits|
   post_via_redirect url_for(:controller => :twilio, :action => :show_node, :Digits => digits)
+end
+
+When /^I enter "([^"]*)" when I am on the root node's first child$/ do |digits|
+  id = Node.root.children.first.id
+  post_via_redirect url_for(:controller => :twilio, :action => :show_node, :id => id, :Digits => digits)
 end

@@ -43,3 +43,15 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
+
+  Scenario: navigate to a child node
+    Given there are a few nodes
+    When I enter "child(1)" when I am on the root node
+    Then I should get a valid TwiML response
+    And it should play "http://api.twilio.com/2010-04-01/Accounts/ACec5bb8f63c52532cb3a8c18a1b2e85b1/Recordings/RE86755b2e4419d1bebfd1677969e53586"
+
+  Scenario: navigate to the parent
+    Given there are a few nodes
+    When I enter "parent" when I am on the root node's first child
+    Then I should get a valid TwiML response
+    And it should play "http://api.twilio.com/2010-04-01/Accounts/ACec5bb8f63c52532cb3a8c18a1b2e85b1/Recordings/RE48c9b4391d0850546843da3d1c4f1070"

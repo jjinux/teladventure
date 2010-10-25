@@ -21,7 +21,7 @@ class TwilioController < ApplicationController
 
     @node.children.each_with_index do |child, i|
       @choices << Choice.new(
-        label("show_node(#{i + 1})"),
+        label("child(#{i + 1})"),
         digits(i + 1),
         view_block { @xml.Play(child.choice) },
         controller_block { redirect_to :action => :show_node, :id => child.id }
@@ -45,7 +45,7 @@ class TwilioController < ApplicationController
 
     if @node.parent
       @choices << Choice.new(
-        label("show_node(#{@node.parent_id})"),
+        label("parent"),
         digits("*#{i += 1}"),
         view_block { @xml.Say("go back a step.") },
         controller_block { redirect_to :action => :show_node, :id => @node.parent_id }
