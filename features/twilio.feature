@@ -19,6 +19,7 @@ Feature: Twilio
     Then I should get a valid TwiML response
     And it should tell me the current outcome
     And it should say "create a new choice and outcome."
+    And it should say "edit the current choice and outcome."
     And it should ask me for the next choice
 
   Scenario: listen to the root node and timeout
@@ -137,3 +138,80 @@ Feature: Twilio
     Then I should get a valid TwiML response
     And it should tell me the current outcome
     And it should say "create a new choice and outcome."
+
+  Scenario: edit a node
+    Given there are a few nodes
+    When I enter "edit_node" when I am on the root node's first child
+    Then I should get a valid TwiML response
+    And it should say "You are about to edit the current choice and outcome."
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
+    And it should say "Please record a new choice after the beep.  It may be up to 10 seconds long.  Press any key when you are done."
+    And it should record something
+
+    When I record something with the URL "new_choice"
+    Then I should get a valid TwiML response
+    And it should say "You recorded:"
+    And it should play "new_choice"
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
+    And it should say "If this is correct"
+    And it should say "If this is incorrect"
+
+    When I enter "incorrect"
+    Then I should get a valid TwiML response
+    And it should say "Please record a new choice after the beep.  It may be up to 10 seconds long.  Press any key when you are done."
+    And it should record something
+
+    When I record something with the URL "new_choice"
+    Then I should get a valid TwiML response
+    And it should say "You recorded:"
+    And it should play "new_choice"
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
+    And it should say "If this is correct"
+    And it should say "If this is incorrect"
+
+    When I enter "correct"
+    Then I should get a valid TwiML response
+    And it should say "Now, record a new outcome after the beep.  It may be up to 60 seconds long.  Press any key when you are done."
+    And it should record something
+
+    When I record something with the URL "new_outcome"
+    Then I should get a valid TwiML response
+    And it should say "You recorded:"
+    And it should play "new_outcome"
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
+    And it should say "If this is correct"
+    And it should say "If this is incorrect"
+
+    When I enter "incorrect"
+    Then I should get a valid TwiML response
+    And it should say "Now, record a new outcome after the beep.  It may be up to 60 seconds long.  Press any key when you are done."
+    And it should record something
+
+    When I record something with the URL "new_outcome"
+    Then I should get a valid TwiML response
+    And it should say "You recorded:"
+    And it should play "new_outcome"
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
+    And it should say "If this is correct"
+    And it should say "If this is incorrect"
+
+    When I enter "correct"
+    Then I should get a valid TwiML response
+    And it should say "You have edited the current choice and outcome."
+    And it should say "You can now continue the adventure where you left off."
+    And there should be a child of the root node with choice "new_choice" and outcome "new_outcome"
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
+    And it should play "new_outcome"
+    And it should say "edit the current choice and outcome."
