@@ -36,13 +36,6 @@ class TwilioController < ApplicationController
       controller_block { redirect_to :action => :create_node, :parent_id => @node.id }
     )
 
-    @choices << Choice.new(
-      label(:edit_node),
-      digits("*#{i += 1}"),
-      view_block { @xml.Say("edit the current choice and outcome.") },
-      controller_block { redirect_to :action => :edit_node, :id => @node.id }
-    )
-
     i += 1  # This number is reserved for this choice.
     if @node.parent
       @choices << Choice.new(
