@@ -7,13 +7,4 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
-
-  private
-
-  def render_xml(options = {})
-    options[:layout] ||= false
-    respond_to do |format|
-      format.xml { render options }
-    end
-  end
 end
