@@ -1,18 +1,2 @@
-xml.Say("Please record a message.  The message may be up to two minutes long.  Press any key when you are done.")
-xml.Record(:maxLength => "120", :action => url_for(:action => :receive_recording_url))
-
-def receive_recording_url
-  s = "RecordingUrl: #{params[:RecordingUrl]}"
-  puts s
-  render :text => s
-end
-
-Handle invalid input by saying an error message and redirecting.
-Don't let people edit the root node.
-Figure out the right voice in the .feature files.  Who am I?
-Tell: 4braham@gmail.com
-
-==
-
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
