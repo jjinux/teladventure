@@ -1,5 +1,5 @@
 class Node < ActiveRecord::Base
-  acts_as_tree
+  acts_as_tree :order => "created_at"
   attr_accessible :choice, :outcome
 
   # Delete all the nodes and create a few for testing or development.
