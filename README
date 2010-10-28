@@ -1,3 +1,53 @@
+== Introduction
+
+This is an phone-based, adventure game written in Ruby on Rails using Twilio.
+
+Website: http://teladventure.heroku.com/
+Phone number: (925) 386-6989
+
+== Installation Instructions
+
+Assuming you already have Ruby, Rails, MySQL, etc. setup, here's a rough idea
+of how to install it on Ubuntu:
+
+  cd teladventure
+  /var/lib/gems/1.8/bin/rake gems:install
+  /var/lib/gems/1.8/bin/rake gems:install RAILS_ENV=test
+  /var/lib/gems/1.8/bin/rake gems:install RAILS_ENV=cucumber:
+    webrat-0.7.0
+  echo "GRANT ALL ON *.* TO 'teladventure'@'localhost' IDENTIFIED BY 'gr@ndAdve11';" |
+  mysql -u root -p
+  As your normal user:
+    rake db:create
+    rake db:migrate
+    rake db:seed
+    rake db:create RAILS_ENV=test
+    rake db:migrate RAILS_ENV=test
+    rake db:seed RAILS_ENV=test
+
+Naturally, you can change the database password by editing the above command and
+then editing config/database.yml.
+
+Here's how to setup Heroku (assuming you already have an account, etc.):
+
+  gem install heroku
+  As your normal user:
+    heroku create
+    git push heroku master
+    heroku rake db:migrate
+    heroku rename teladventure
+    open http://teladventure.heroku.com/
+    heroku logs
+    heroku rake db:migrate
+    heroku restart
+
+== Running Tests
+
+  ./script/spec spec
+  ./script/cucumber features
+
+== TODO
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create 
