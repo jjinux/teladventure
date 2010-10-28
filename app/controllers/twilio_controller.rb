@@ -28,15 +28,15 @@ class TwilioController < ApplicationController
       )
     end
 
-    i = 0
+    i = 1
     @choices << Choice.new(
       label(:create_node),
-      digits("*#{i += 1}"),
+      digits("*#{i}"),
       view_block { @xml.Say("create a new choice and outcome.") },
       controller_block { redirect_to :action => :create_node, :parent_id => @node.id }
     )
 
-    i += 1  # This number is reserved for this choice.
+    i += 1
     if @node.parent
       @choices << Choice.new(
         label("parent"),
@@ -46,9 +46,10 @@ class TwilioController < ApplicationController
       )
     end
 
+    i += 1
     @choices << Choice.new(
       label(:start_over),
-      digits("*#{i += 1}"),
+      digits("*#{i}"),
       view_block { @xml.Say("start over.") },
       controller_block { redirect_to :action => :index }
     )
