@@ -30,10 +30,18 @@ class TwilioController < ApplicationController
 
     i = 1
     @choices << Choice.new(
+      label(:edit_node),
+      digits("*#{i}"),
+      view_block { @xml.Say("edit the current choice and outcome.") },
+      controller_block { redirect_to :action => :edit_node, :id => @node }
+    )
+
+    i = 1
+    @choices << Choice.new(
       label(:create_node),
       digits("*#{i}"),
       view_block { @xml.Say("create a new choice and outcome.") },
-      controller_block { redirect_to :action => :create_node, :parent_id => @node.id }
+      controller_block { redirect_to :action => :create_node, :parent_id => @node }
     )
 
     i += 1
@@ -63,20 +71,13 @@ class TwilioController < ApplicationController
 
   def create_node
     raise ArgumentError.new("No 'parent_id' parameter passed") unless params[:parent_id]
-    session[:create_node] = {:parent_id => params[:parent_id]}
+    session[:node] = {:parent_id => params[:parent_id]}
     say_message_and_redirect("You are about to create a new choice and outcome.",
       url_for(:action => :create_node_record_choice))
   end
 
   def create_node_record_choice
-    if request.get?
-      render_xml
-    else
-      @recording = session[:create_node][:choice] = params[:RecordingUrl]
-      raise ArgumentError.new("No 'RecordingUrl' parameter passed") unless @recording
-      @redirect = url_for :action => :create_node_verify_choice
-      render_xml :action => :play_recording_and_redirect
-    end
+    record_node_attr(:record_choice, :choice, :create_node_verify_choice)
   end
 
   def create_node_verify_choice
@@ -84,14 +85,7 @@ class TwilioController < ApplicationController
   end
 
   def create_node_record_outcome
-    if request.get?
-      render_xml
-    else
-      @recording = session[:create_node][:outcome] = params[:RecordingUrl]
-      raise ArgumentError.new("No 'RecordingUrl' parameter passed") unless @recording
-      @redirect = url_for :action => :create_node_verify_outcome
-      render_xml :action => :play_recording_and_redirect
-    end
+    record_node_attr(:record_outcome, :outcome, :create_node_verify_outcome)
   end
 
   def create_node_verify_outcome
@@ -99,14 +93,49 @@ class TwilioController < ApplicationController
   end
 
   def create_node_congratulations
-    parent = Node.find(session[:create_node][:parent_id])
-    parent.children.create!(session[:create_node])
+    parent = Node.find(session[:node][:parent_id])
+    parent.children.create!(session[:node])
     say_message_and_redirect(
       %Q{
         You have created a new choice and outcome.
         You can now continue the adventure where you left off.
       },
       url_for(:action => :show_node, :id => parent)
+    )
+  end
+
+  def edit_node
+    raise ArgumentError.new("No 'id' parameter passed") unless params[:id]
+    session[:node] = {:id => params[:id]}
+    say_message_and_redirect("You are about to edit the current choice and outcome.",
+      url_for(:action => :edit_node_record_choice))
+  end
+
+  def edit_node_record_choice
+    record_node_attr(:record_choice, :choice, :edit_node_verify_choice)
+  end
+
+  def edit_node_verify_choice
+    confirm(:incorrect => :edit_node_record_choice, :correct => :edit_node_record_outcome)
+  end
+
+  def edit_node_record_outcome
+    record_node_attr(:record_outcome, :outcome, :edit_node_verify_outcome)
+  end
+
+  def edit_node_verify_outcome
+    confirm(:incorrect => :edit_node_record_outcome, :correct => :edit_node_congratulations)
+  end
+
+  def edit_node_congratulations
+    node = Node.find(session[:node][:id])
+    node.update_attributes!(session[:node])
+    say_message_and_redirect(
+      %Q{
+        You have edited the current choice and outcome.
+        You can now continue the adventure where you left off.
+      },
+      url_for(:action => :show_node, :id => node)
     )
   end
 
@@ -232,5 +261,19 @@ class TwilioController < ApplicationController
   # This makes the text-to-speech engine speak phone numbers one digit at a time.
   def space_out(s)
     s.split(//).join(' ')
+  end
+
+  # Record something and save it to session[:node][attr_name].
+  # 
+  # Redirect to next_action.
+  def record_node_attr(template, attr_name, next_action)
+    if request.get?
+      render_xml :action => template
+    else
+      @recording = session[:node][attr_name] = params[:RecordingUrl]
+      raise ArgumentError.new("No 'RecordingUrl' parameter passed") unless @recording
+      @redirect = url_for :action => next_action
+      render_xml :action => :play_recording_and_redirect
+    end
   end
 end
