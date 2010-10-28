@@ -71,3 +71,7 @@ When /^I enter "([^"]*)" when I am on the root node's first child$/ do |digits|
   id = Node.root.children.first.id
   post_via_redirect url_for(:controller => :twilio, :action => :show_node, :id => id, :Digits => digits)
 end
+
+Then /^there should be a child of the root node with choice "([^"]*)" and outcome "([^"]*)"$/ do |choice, outcome|
+  Node.root.children.find_by_choice_and_outcome(choice, outcome).should_not be_nil
+end

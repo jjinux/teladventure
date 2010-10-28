@@ -60,6 +60,55 @@ class TwilioController < ApplicationController
     end
   end
 
+  def create_node
+    raise ArgumentError.new("No 'parent_id' parameter passed") unless params[:parent_id]
+    session[:create_node] = {:parent_id => params[:parent_id]}
+    say_message_and_redirect("You are about to create a new choice and outcome.",
+      url_for(:action => :create_node_record_choice))
+  end
+
+  def create_node_record_choice
+    if request.get?
+      render_xml
+    else
+      @recording = session[:create_node][:choice] = params[:RecordingUrl]
+      raise ArgumentError.new("No 'RecordingUrl' parameter passed") unless @recording
+      @redirect = url_for :action => :create_node_verify_choice
+      render_xml :action => :play_recording_and_redirect
+    end
+  end
+
+  def create_node_verify_choice
+    confirm(:incorrect => :create_node_record_choice, :correct => :create_node_record_outcome)
+  end
+
+  def create_node_record_outcome
+    if request.get?
+      render_xml
+    else
+      @recording = session[:create_node][:outcome] = params[:RecordingUrl]
+      raise ArgumentError.new("No 'RecordingUrl' parameter passed") unless @recording
+      @redirect = url_for :action => :create_node_verify_outcome
+      render_xml :action => :play_recording_and_redirect
+    end
+  end
+
+  def create_node_verify_outcome
+    confirm(:incorrect => :create_node_record_outcome, :correct => :create_node_congratulations)
+  end
+
+  def create_node_congratulations
+    parent = Node.find(session[:create_node][:parent_id])
+    parent.children.create!(session[:create_node])
+    say_message_and_redirect(
+      %Q{
+        You have created a new choice and outcome.
+        You can now continue the adventure where you left off.
+      },
+      url_for(:action => :show_node, :id => parent)
+    )
+  end
+
   private
 
   def find_node
