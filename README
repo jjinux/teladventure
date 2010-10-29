@@ -15,7 +15,7 @@ of how to install it on Ubuntu:
   /var/lib/gems/1.8/bin/rake gems:install RAILS_ENV=test
   /var/lib/gems/1.8/bin/rake gems:install RAILS_ENV=cucumber:
     webrat-0.7.0
-  echo "GRANT ALL ON *.* TO 'teladventure'@'localhost' IDENTIFIED BY 'gr@ndAdve11';" |
+  echo "GRANT ALL ON *.* TO 'teladventure'@'localhost' IDENTIFIED BY 'grandAdve11';" |
   mysql -u root -p
   As your normal user:
     rake db:create

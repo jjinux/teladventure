@@ -21,7 +21,7 @@ development:
   database: teladventure_development
   pool: 5
   username: teladventure
-  password: gr@ndAdve11
+  password: grandAdve11
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -33,7 +33,7 @@ test: &test
   database: teladventure_test
   pool: 5
   username: teladventure
-  password: gr@ndAdve11
+  password: grandAdve11
 
 production:
   adapter: mysql
@@ -42,7 +42,7 @@ production:
   database: teladventure_production
   pool: 5
   username: teladventure
-  password: gr@ndAdve11
+  password: grandAdve11
 
 cucumber:
   <<: *test
