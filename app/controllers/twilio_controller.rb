@@ -36,7 +36,7 @@ class TwilioController < ApplicationController
       controller_block { redirect_to :action => :edit_node, :id => @node }
     )
 
-    i = 1
+    i += 1
     @choices << Choice.new(
       label(:create_node),
       digits("*#{i}"),
