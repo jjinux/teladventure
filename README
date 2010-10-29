@@ -54,6 +54,13 @@ Here's how to setup Heroku (assuming you already have an account, etc.):
 
 == TODO
 
+ * It'd be fun to use RealTime to listen in on people who create new nodes.
+ * Ask Anthony Eden how to make the choice stuff more Ruby-ish.
+ * Test coverage.
+ * Don't let people edit the root node.
+ * Figure out the right voice in the feature file.  Who am I?
+ * Acknowledge Abraham who gave me the idea.
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create 
