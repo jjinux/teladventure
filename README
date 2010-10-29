@@ -2,8 +2,9 @@
 
 This is an phone-based, adventure game written in Ruby on Rails using Twilio.
 
-Website: http://teladventure.heroku.com/
 Phone number: (888) 877-7418
+Running websites: http://teladventure.heroku.com/
+Source code: http://github.com/jjinux/teladventure
 
 == Installation Instructions
 
