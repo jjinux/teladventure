@@ -54,6 +54,7 @@ Here's how to setup Heroku (assuming you already have an account, etc.):
 
 == TODO
 
+ * Get a non-toll-free number for Europeans.
  * It'd be fun to use RealTime to listen in on people who create new nodes.
  * Ask Anthony Eden how to make the choice stuff more Ruby-ish.
  * Test coverage.
