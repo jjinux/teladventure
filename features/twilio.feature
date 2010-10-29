@@ -80,10 +80,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "incorrect"
+    When I enter "try_again"
     Then I should get a valid TwiML response
     And it should say "Please record a new choice after the beep.  It may be up to 10 seconds long.  Press any key when you are done."
     And it should record something
@@ -95,10 +95,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "correct"
+    When I enter "continue"
     Then I should get a valid TwiML response
     And it should say "Now, record a new outcome after the beep.  It may be up to 60 seconds long.  Press any key when you are done."
     And it should record something
@@ -110,10 +110,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "incorrect"
+    When I enter "try_again"
     Then I should get a valid TwiML response
     And it should say "Now, record a new outcome after the beep.  It may be up to 60 seconds long.  Press any key when you are done."
     And it should record something
@@ -125,10 +125,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "correct"
+    When I enter "continue"
     Then I should get a valid TwiML response
     And it should say "You have created a new choice and outcome."
     And it should say "You can now continue the adventure where you left off."
@@ -157,10 +157,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "incorrect"
+    When I enter "try_again"
     Then I should get a valid TwiML response
     And it should say "Please record a new choice after the beep.  It may be up to 10 seconds long.  Press any key when you are done."
     And it should record something
@@ -172,10 +172,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "correct"
+    When I enter "continue"
     Then I should get a valid TwiML response
     And it should say "Now, record a new outcome after the beep.  It may be up to 60 seconds long.  Press any key when you are done."
     And it should record something
@@ -187,10 +187,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "incorrect"
+    When I enter "try_again"
     Then I should get a valid TwiML response
     And it should say "Now, record a new outcome after the beep.  It may be up to 60 seconds long.  Press any key when you are done."
     And it should record something
@@ -202,10 +202,10 @@ Feature: Twilio
 
     When I follow the redirect
     Then I should get a valid TwiML response
-    And it should say "If this is correct"
-    And it should say "If this is incorrect"
+    And it should say "continue"
+    And it should say "try again"
 
-    When I enter "correct"
+    When I enter "continue"
     Then I should get a valid TwiML response
     And it should say "You have edited the current choice and outcome."
     And it should say "You can now continue the adventure where you left off."

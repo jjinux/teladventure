@@ -240,16 +240,16 @@ class TwilioController < ApplicationController
 
     @choices = [
       Choice.new(
-        label(:correct),
+        label(:continue),
         digits(1),
-        view_block { @xml.Say("If this is correct") },
+        view_block { @xml.Say("continue.") },
         controller_block { redirect_to :action => options[:correct] }
       ),
 
       Choice.new(
-        label(:incorrect),
+        label(:try_again),
         digits(3),
-        view_block { @xml.Say("If this is incorrect") },
+        view_block { @xml.Say("try again.") },
         controller_block { redirect_to :action => options[:incorrect] }
       )
     ]
