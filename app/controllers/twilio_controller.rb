@@ -28,13 +28,17 @@ class TwilioController < ApplicationController
       )
     end
 
+    # It's too confusing if people edit a parent node because usually they'll
+    # break the stories in the child nodes.
     i = 1
-    @choices << Choice.new(
-      label(:edit_node),
-      digits("*#{i}"),
-      view_block { @xml.Say("edit the current choice and outcome.") },
-      controller_block { redirect_to :action => :edit_node, :id => @node }
-    )
+    if @node.children.empty?
+      @choices << Choice.new(
+        label(:edit_node),
+        digits("*#{i}"),
+        view_block { @xml.Say("edit the current choice and outcome.") },
+        controller_block { redirect_to :action => :edit_node, :id => @node }
+      )
+    end
 
     i += 1
     @choices << Choice.new(
