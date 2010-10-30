@@ -47,6 +47,10 @@ Given /^there are a few nodes$/ do
   Node.create_a_few_nodes
 end
 
+Given /^there is a root node$/ do
+  Node.create_a_root_node
+end
+
 When /^I receive a phone call$/ do
   get url_for(:controller => :twilio)
 end
