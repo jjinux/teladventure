@@ -11,7 +11,7 @@ class TwilioController < ApplicationController
         Hello.
         Teladventure is an interactive, phone-based adventure game.
         You play Teladventure not just by exploring the story, but also by adding to it.
-        Now, let's get started.
+        Let's get started.
       },
       url_for(:action => "show_node"))
   end
