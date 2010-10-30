@@ -76,8 +76,11 @@ class TwilioController < ApplicationController
   def create_node
     raise ArgumentError.new("No 'parent_id' parameter passed") unless params[:parent_id]
     session[:node] = {:parent_id => params[:parent_id]}
-    say_message_and_redirect("You are about to create a new choice and outcome.",
-      url_for(:action => :create_node_record_choice))
+    redirect_to :action => :create_node_pause
+  end
+
+  def create_node_pause
+    pause("You are about to create a new choice and outcome.", :create_node_record_choice)
   end
 
   def create_node_record_choice
@@ -111,8 +114,11 @@ class TwilioController < ApplicationController
   def edit_node
     raise ArgumentError.new("No 'id' parameter passed") unless params[:id]
     session[:node] = {:id => params[:id]}
-    say_message_and_redirect("You are about to edit the current choice and outcome.",
-      url_for(:action => :edit_node_record_choice))
+    redirect_to :action => :edit_node_pause
+  end
+
+  def edit_node_pause
+    pause("You are about to edit the current choice and outcome.", :edit_node_record_choice)
   end
 
   def edit_node_record_choice
@@ -266,6 +272,19 @@ class TwilioController < ApplicationController
   # This makes the text-to-speech engine speak phone numbers one digit at a time.
   def space_out(s)
     s.split(//).join(' ')
+  end
+
+  # Give the user a chance to think.
+  def pause(message, next_action)
+    if request.get?
+      @message = %Q{
+        #{message}
+        Take a couple minutes to think about what you will say and press any key when you are ready to continue.
+      }
+      render_xml :action => :pause
+    else
+      redirect_to :action => next_action
+    end
   end
 
   # Record something and save it to session[:node][attr_name].
