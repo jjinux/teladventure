@@ -58,10 +58,9 @@ class TwilioController < ApplicationController
       )
     end
 
-    i += 1
     @choices << Choice.new(
       label(:start_over),
-      digits("*#{i}"),
+      digits(0),
       view_block { @xml.Say("start over.") },
       controller_block { redirect_to :action => :index }
     )
