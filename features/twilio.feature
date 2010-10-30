@@ -225,3 +225,17 @@ Feature: Twilio
     When I follow the redirect
     Then I should get a valid TwiML response
     And it should play "http://api.twilio.com/2010-04-01/Accounts/ACec5bb8f63c52532cb3a8c18a1b2e85b1/Recordings/RE48c9b4391d0850546843da3d1c4f1070"
+
+  Scenario: tell the user more about Teladventure
+    Given there is a root node
+    And I am on the root node
+    Then I should get a valid TwiML response
+    And it should say "learn more about Teladventure."
+
+    When I enter "learn_more"
+    Then I should get a valid TwiML response
+    And it should say "Teladventure was created by"
+
+    When I follow the redirect
+    Then I should get a valid TwiML response
+    And it should say "Hello"

@@ -58,6 +58,14 @@ class TwilioController < ApplicationController
       )
     end
 
+    i += 1
+    @choices << Choice.new(
+      label("learn_more"),
+      digits("*#{i}"),
+      view_block { @xml.Say("learn more about Teladventure.") },
+      controller_block { redirect_to :action => :learn_more }
+    )
+
     @choices << Choice.new(
       label(:start_over),
       digits(0),
@@ -147,6 +155,19 @@ class TwilioController < ApplicationController
       },
       url_for(:action => :show_node, :id => whats_next)
     )
+  end
+
+  def learn_more
+    say_message_and_redirect(
+      %{
+        Teladventure was created by Shannon -jj Behrens using Ruby on Rails
+        and Twilio.  Please feel free to submit feedback to the author by
+        emailing him at j,j,i,n,u,x,at,g,mail,dot,com.
+
+        Teladventure is open source.  You can get the source code from
+        git,hub,dot,com,slash,j,j,i,n,u,x,slash,t,e,l,adventure.
+      },
+      url_for(:action => :index))
   end
 
   private
