@@ -130,12 +130,13 @@ class TwilioController < ApplicationController
   def edit_node_congratulations
     node = Node.find(session[:node][:id])
     node.update_attributes!(session[:node])
+    whats_next = node.parent || node
     say_message_and_redirect(
       %Q{
         You have edited the current choice and outcome.
         You can now continue the adventure where you left off.
       },
-      url_for(:action => :show_node, :id => node)
+      url_for(:action => :show_node, :id => whats_next)
     )
   end
 
