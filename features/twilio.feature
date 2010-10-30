@@ -14,12 +14,21 @@ Feature: Twilio
     Then I should get a valid TwiML response
 
   Scenario: listen to the root node
-    Given there are a few nodes
+    Given there is a root node
     And I am on the root node
     Then I should get a valid TwiML response
     And it should tell me the current outcome
     And it should say "create a new choice and outcome."
     And it should say "edit the current choice and outcome."
+    And it should ask me for the next choice
+
+  Scenario: you can't edit a node that has children
+    Given there are a few nodes
+    And I am on the root node
+    Then I should get a valid TwiML response
+    And it should tell me the current outcome
+    And it should say "create a new choice and outcome."
+    And it should not say "edit the current choice and outcome."
     And it should ask me for the next choice
 
   Scenario: listen to the root node and timeout
@@ -214,4 +223,3 @@ Feature: Twilio
     When I follow the redirect
     Then I should get a valid TwiML response
     And it should play "http://api.twilio.com/2010-04-01/Accounts/ACec5bb8f63c52532cb3a8c18a1b2e85b1/Recordings/RE48c9b4391d0850546843da3d1c4f1070"
-    And it should say "edit the current choice and outcome."
